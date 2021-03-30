@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: auto;
+            text-align: center;
+            font-size: 13px;
+            font-family: 'Nunito', sans-serif;
+            color: #333;
+        }
+        .section {
+            padding: 150px;
+            text-align: center;
+            background: url(https://images.unsplash.com/photo-1549922059-2f98536863d7?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1050&q=80) center;
+            background-attachment: fixed;
+            color: white;
+        }
+        .section p:first-child {
+            margin-top: -30px;
+            margin-bottom: 50px;
+        }
+        .section p:nth-child(2) {
+            font-size: xx-large;
+            margin-bottom: -5px;
+        }
+        .section p:nth-child(3) {
+            font-size: medium;
+        }
+        .nut {
+            background: linear-gradient(0.25turn, rgb(221, 78, 52), tomato);
+            box-shadow: 0 2px 2px 0 rgba(109, 73, 73, 0.7);
+            border-radius: 3px;
+            text-decoration: none;
+            height: 50px;
+            width: 200px;
+            border: none;
+            margin-top: 30px;
+            cursor: pointer;
+        }
+        .nut a {
+            text-decoration: none;
+            color: white;
+        }
+        .list {
+            height: auto;
+            width: auto;
+            display: flex;
+            flex-direction: row;
+            padding: 0 100px;
+        }
+        .title {
+            height: min-content;
+            width: auto;
+            margin-top: 80px;
+        }
+        .title p:first-child {
+            font-size: x-large;
+            margin-bottom: -1.5px;
+        }
+        .title p:nth-child(2)::before {
+            background-color: tomato;
+            content: "";
+            display: block;
+            height: 1.75px;
+            margin: 11px auto 9px;
+            position: relative;
+            width: 130px;
+        }
+        .title p:nth-child(2)::after {
+            background-color: tomato;
+            content: "";
+            display: block;
+            height: 0.8px;
+            margin: 11px auto 30px;
+            position: relative;
+            width: 130px;
+        }
+        .list li {
+            margin: 0px 20px;
+            display: inline-block;
+        }
+        .list li p:first-child {
+            font-size: 18px;
+            color: tomato;
+        }
+        .list li p:last-child {
+            margin-bottom: 100px;
+        }
+    </style>
+</head>
+<body>
+    <section class="section">
+        <p><img src="https://demo.templateocean.com/premium/template/kane/assets/images/logo.png" alt="anh"></p>
+        <p>Present your app in beautiful way with Kane.</p>
+        <p>Available on App Store and Play Store</p>
+        <button class="nut"><a href="./">Download App</a></button>
+    </section>
+    <section>
+        <div class="title">
+            <p>It's Awesome</p>
+            <p>List your app features and all the details Lorem ipsum dolor kadr</p>
+        </div>
+        <ul class="list">
+            <li>
+                <p>Your Data in Cloud</p>
+                <p>Fruitful Fruit hath, fruiful said him created bring set, behold darkness Shall lights deep fish seasons itself given lokeness upon bring fill their their whose. Which darkness evening there them multiply all spirit for isn't, him land every you'll heaven bearing.</p>
+            </li>
+            <li>
+                <p>Monthly Rewards</p>
+                <p>Fruitful Fruit hath, fruitful said him created bring set, behold darkness Shall lights deep fish seasons itself given likeness upon bring fill their their whose. Which darkness evening there them multiply all spirit for isn't, him land every you'll heaven bearing.</p>
+            </li>
+            <li>
+                <p>24/7 Support</p>
+                <p>Fruitful Fruit hath, fruitful said him created bring set, behold darkness Shall lights deep fish seasons itself given likeness upon bring fill their their whose. Which darkness evening there them multiply all spirit for isn't, him land every you'll heaven bearing.</p>
+            </li>
+        </ul>
+    </section>
+</body>
+</html>
