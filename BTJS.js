@@ -111,9 +111,9 @@ function longestWord(str) {
 
 //BT10
 function numberBetween() {
-    const lower = parseInt(prompt('Enter number 1: '));
-    const higher = parseInt(prompt('Enter number 2: '));
-    console.log("So nguyen to giua ${lower} va ${higher} :");
+    var lower = Number();
+    var higher = Number();
+    console.log("So nguyen to giua 2 so :");
     for (let i = lower; i <= higher; i++) {
         let flag = 0;
         for (let j = 2; j < i; j++) {
