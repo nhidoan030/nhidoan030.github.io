@@ -182,12 +182,5 @@ window.onload = function () {
     }
     function saveFromLocalStorage() {
         let tab = document.querySelector("#grid tbody").rows[index];
-        for (i = 0; i < 2; i++) {
-            if (i == 1) {
-                let td = tab.getElementsByTagName("td")[i];
-                    tdi = tab.getElementsByTagName("td")[i+1];
-                td.innerText = '';
-                tdi.innerHTML = ''
-            }
-    }}
+    }
 }
