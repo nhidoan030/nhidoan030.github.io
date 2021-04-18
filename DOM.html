@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="test.css">
+</head>
+<body>
+    <div class="container">
+        <h2>:</h2>
+        <div class="form-control">
+            <label for="name">Item</label>
+            <input id="name" type="text" pattern="^[A-Za-z]\w*$" class="form-control" />
+            <span id="item_error"></span>
+        </div><br>
+        <div>
+            <label for="category">Category</label>
+            <select id="category" type="text" class="form-control">
+                <option value="noselect">No select</option>
+                <option value="Category 1">Category 1</option>
+                <option value="Category 2">Category 2</option>
+                <option value="Category 3">Category 3</option>
+            </select>
+            <span" id="cate_error"></span>
+        </div><br>
+        <div>
+            <input type="file" accept=".jpeg, .png" name="image" id="file" onchange="loadFile(event)">
+            <img id="previewimg" width="150"/><span id="img_error"></span>
+        </div><br>
+        <div>
+            <button id="submit">Add</button>
+        </div>
+    </div>
+    <br>
+    <div class="table" style="margin-left: 20px;">
+        <table id="grid" class="table table-striped">
+            <thead>
+                <tr>
+                  <th style="width: 100px;">Name</th> 
+                  <th style="width: 200px;">Category</th>
+                  <th style="width: 250px">Image</th>
+                  <th style="width: 20px">Action</th>
+                </tr>
+              </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <script src="./DOM.js"></script>
+</body>
+
+</html>
