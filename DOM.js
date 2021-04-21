@@ -1,7 +1,52 @@
-let loadFile = function(event) {
-    let image = document.getElementById('previewimg');
+let load = function(event) {
+    let image = document.getElementById('preview');
     image.src = URL.createObjectURL(event.target.files[0]);
 };
+
+function validate() {
+    let name = document.getElementById("name"),
+        category = document.getElementById("category"),
+        file = document.getElementById("file");
+        submit = true;
+    if(!( name.value[0] < '0' || name.value[0] > '9') ) {
+        document.getElementById("item_error").innerHTML="Khong the bat dau bang so";
+        submit = false;
+    }
+    else if(name.value.length > 10){
+        document.getElementById("item_error").innerHTML="Length must be less than 10";
+        submit = false;
+    }
+    else if (name.value.toString().trim() == "") {
+        document.getElementById("item_error").innerHTML= "Name must be filled out";
+        submit = false;
+    } else {
+        document.getElementById("item_error").innerHTML = "";
+    }
+    if ( category.value === "noselect" || category.value === null) {
+        document.getElementById("cate_error").innerHTML= "Category must be choosen";
+        submit = false;
+    } else {
+        document.getElementById("cate_error").innerHTML = "";
+    }
+    if ( file.value == "") {
+        document.getElementById("img_error").innerHTML= "File must be filled out";
+        submit = false;
+    } else {
+        document.getElementById("img_error").innerHTML = "";
+    }
+    if (submit == false) return false; 
+    return true;
+}
+
+document.querySelector("#file").addEventListener("change", function() {
+    const reader = new FileReader();
+
+    reader.addEventListener("load", () => {
+        localStorage.setItem('file' ,reader.result);
+        document.getElementById('previewimg').src = reader.result;
+    });
+    reader.readAsDataURL(this.files[0]);
+});
 
 window.onload = function () {
     let localStorageList = 'datas';
@@ -12,48 +57,31 @@ window.onload = function () {
         let name = document.getElementById("name"),
             category = document.getElementById("category"),
             file = document.getElementById("file");
-
-        // Validate
-        if (name.value.length === 0 || name.value.length > 10 || name.value === '' ) {
-            document.getElementById("item_error").innerHTML = "* Nhap name";
-            return;
-        } else {
-            document.getElementById("item_error").innerHTML = "";
-        }
-        if (category.value === "noselect") {
-            document.getElementById("cate_error").innerHTML = "Chon cate";
-            return;
-        } else {
-            document.getElementById("cate_error").innerHTML = "";
-        }
-        if (file.value === "") {
-            document.getElementById("img_error").innerHTML = "Them anh";
-            return;
-        } else {
-            document.getElementById("img_error").innerHTML = "";
-        }
-        
+    
+    if (validate()) {
         let data = {
             name: name.value,
             category: category.value,
-            file: file.value,
+            file: localStorage.getItem('file'),
         };
 
+        
+        //Reset data
         name.value = '';
         category.value = '';
         file.value = '';
         document.getElementById('previewimg').src = '';
 
         appendObjectToLocalStorage(data);
+    }
     })
+
     function appendObjectToLocalStorage(obj) {
         let datas = [],
             dataInLocalStorage = localStorage.getItem(localStorageList);
-
         if (dataInLocalStorage !== null) {
             datas = JSON.parse(dataInLocalStorage);
         }
-
         datas.push(obj);
         localStorage.setItem(localStorageList, JSON.stringify(datas));
         loadFromLocalStorage();
@@ -74,24 +102,30 @@ window.onload = function () {
             let tr = document.createElement("tr"),
                 tdName = document.createElement("td"),
                 tdcategory = document.createElement("td"),
-                tdfile = document.createElement("td"),
+                tdfile = document.createElement("img"),
                 tdRemove = document.createElement("td"),
                 btnRemove = document.createElement("button");
                 tdedit = document.createElement("td"),
                 btnedit = document.createElement("button");
-                tdsave = document.createElement("td"),
+                //tdsave = document.createElement("td"),
                 btnsave = document.createElement("button");
-                tdcancel = document.createElement("td"),
+                //tdcancel = document.createElement("td"),
                 btncancel = document.createElement("button");
                 
             tdName.innerHTML = x.name;
+            tdName.setAttribute('id', 'Name' + i);
             tdcategory.innerHTML = x.category;
-            tdfile.innerHTML = x.file;
+            tdcategory.setAttribute('id', 'Cate' + i);
+            tdfile.src = x.file;
+            tdfile.setAttribute('id', 'Img' + i);
+            tdfile.setAttribute('style', 'width: 40px');
 
             btnRemove.textContent = 'Remove';
             btnRemove.className = 'btn btn-xs btn-danger';
+            btnRemove.setAttribute('value', 'Remove');
+            btnRemove.setAttribute('id', 'Remove' + i);
             btnRemove.setAttribute('style', 'display: inline;');
-            btnRemove.addEventListener('click', function(){
+            btnRemove.addEventListener('click', function() {
                 removeFromLocalStorage(i);
             });
 
@@ -99,7 +133,7 @@ window.onload = function () {
             btnedit.className = 'btn btn-xs btn-danger';
             btnedit.setAttribute('value', 'Update');
             btnedit.setAttribute('id', 'Edit' + i);
-            btnedit.setAttribute('style', 'display: inline;');
+            btnedit.setAttribute('style', 'display: inline; float: left;');
             btnedit.addEventListener('click', function(){
                 editFromLocalStorage(i);
             });
@@ -115,7 +149,7 @@ window.onload = function () {
 
             btncancel.textContent = 'X';
             btncancel.setAttribute('style', 'display: none;');
-            btncancel.setAttribute('title', 'Cancel');
+            btncancel.setAttribute('value', 'Cancel');
             btncancel.setAttribute('id', 'cancel' + i);
             btncancel.className = 'btn btn-xs btn-danger';
             btncancel.addEventListener('click', function(){
@@ -124,8 +158,8 @@ window.onload = function () {
 
             tdRemove.appendChild(btnRemove);
             tdedit.appendChild(btnedit);
-            tdsave.appendChild(btnsave);
-            tdcancel.appendChild(btncancel);
+            //tdsave.appendChild(btnsave);
+            //tdcancel.appendChild(btncancel);
 
             tr.appendChild(tdName);
             tr.appendChild(tdcategory);
@@ -147,13 +181,23 @@ window.onload = function () {
         loadFromLocalStorage();
     }
     function cancelFromLocalStorage(index) {
+        loadFromLocalStorage(index);
+
+        // btncancel = document.getElementById('cancel' + (index));
+        // btncancel.setAttribute('style', 'display: none;');
+
+        // btSave = document.getElementById('Save' + (index));
+        // btSave.setAttribute('style', 'display: none;');
+
+        // btnedit = document.getElementById('Edit' + (index));
+        // btnedit.setAttribute('style', 'display: inline;');
+
+        // btnRemove = document.getElementById('Remove' + (index));
+        // btnRemove.setAttribute('style', 'display: inline;');
+
 
     }
     function editFromLocalStorage(index) {
-        btnsave.setAttribute('style', 'display:inline;');
-        btnedit.setAttribute('style', 'display:none;');
-        //btnRemove.setAttribute('style', 'display:none;');
-        btncancel.setAttribute('style', 'display: inline;');
         let tab = document.querySelector("#grid tbody").rows[index];
         for (i = 0; i < 2; i++) {
             if (i == 1) {
@@ -163,11 +207,11 @@ window.onload = function () {
                     ele.innerHTML = '<option>' + td.innerText + '</option><option>No select</option> <option>Category 1</option><option>Category 2</option><option>Category 3</option>';
                 // for (k = 0; k < category.length; k++) {
                 //     ele.innerHTML = ele.innerHTML +
-                //         '<option>' + category[k] + '</option>';
+                //         '<option>' + x.category[k] + '</option>';
                 // }
                 td.innerText = '';
                 td.appendChild(ele);
-                tdi.innerHTML = '<input type="file" onchange="loadFile(event)"/>' + '<img id="previewimg"/>'
+                tdi.innerHTML = '<input type="file" onchange="load(event)"/><img id="preview" width = "70"/>'
             }
             else {
                 let td = tab.getElementsByTagName("td")[i];
@@ -178,9 +222,21 @@ window.onload = function () {
                 td.appendChild(ele);
             }
         }
-        localStorageList();
+        btncancel = document.getElementById('cancel' + (index));
+        btncancel.setAttribute('style', 'cursor:pointer; display: inline;');
+
+        btnsave = document.getElementById('Save' + (index));
+        btnsave.setAttribute('style', 'display:inline;');
+
+        btnedit = document.getElementById('Edit' + (index));
+        btnedit.setAttribute('style', 'display:none;');
+
+        btnRemove = document.getElementById('Remove' + (index));
+        btnRemove.setAttribute('style', 'display:none;');
     }
-    function saveFromLocalStorage() {
-        let tab = document.querySelector("#grid tbody").rows[index];
+    function saveFromLocalStorage(index) {
+
+        loadFromLocalStorage(); 
+
     }
 }
